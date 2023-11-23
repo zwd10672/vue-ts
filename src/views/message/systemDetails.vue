@@ -1,7 +1,6 @@
+<!-- 系统消息详情 -->
 <script setup lang="ts"></script>
-
 <template>
-  <router-view></router-view>
+  <div>系统消息详情</div>
 </template>
-
 <style scoped></style>

@@ -1,7 +1,6 @@
+<!-- 消息主页 -->
 <script setup lang="ts"></script>
-
 <template>
-  <router-view></router-view>
+  <div>消息主页</div>
 </template>
-
 <style scoped></style>

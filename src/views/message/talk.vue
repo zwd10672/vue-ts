@@ -1,7 +1,6 @@
+<!-- 对话信息 -->
 <script setup lang="ts"></script>
-
 <template>
-  <router-view></router-view>
+  <div>对话信息</div>
 </template>
-
 <style scoped></style>
