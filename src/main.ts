@@ -5,7 +5,7 @@ import store from './store/index'
 import router from './router'
 const app = createApp(App)
 // 使用vant组件
-import { Toast } from 'vant'
+import { Toast, showToast } from 'vant'
 app.use(Toast)
 
 app.use(store)

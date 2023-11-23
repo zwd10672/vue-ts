@@ -12,6 +12,7 @@ export default defineConfig({
       resolvers: [VantResolver()],
     }),
   ],
+  // 跨域代理
   server: {
     port: 8002,
     open: true,

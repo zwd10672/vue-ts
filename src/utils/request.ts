@@ -6,15 +6,6 @@ const service = axios.create({
   timeout: 10000,
 })
 service.interceptors.request.use(
-  // config => {
-  //   const token = window.localStorage.getItem('token')
-  //   if (token) {
-  //     config.params = {
-  //       token: token,
-  //     }
-  //   }
-  //   return config
-  // },
   config => {
     const token = window.localStorage.getItem('token')
     if (token) {
