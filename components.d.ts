@@ -7,9 +7,14 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ConstractList: typeof import('./src/components/list/ConstractList.vue')['default']
+    FooterTabber: typeof import('./src/components/FooterTabber.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    MessageList: typeof import('./src/components/list/MessageList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TalentList: typeof import('./src/components/list/TalentList.vue')['default']
+    TaskList: typeof import('./src/components/list/TaskList.vue')['default']
     VanButton: typeof import('vant/es')['Button']
   }
 }
