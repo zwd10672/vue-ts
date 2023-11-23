@@ -1,6 +1,8 @@
 <!-- 我的主页 -->
-<script setup lang="ts"></script>
+<script setup>
+import FooterTabber from '@/components/FooterTabber.vue'
+</script>
 <template>
-  <div>my</div>
+  <FooterTabber></FooterTabber>
 </template>
 <style scoped></style>
