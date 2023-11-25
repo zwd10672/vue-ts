@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
+import { showToast } from 'vant'
 let baseURL = '/api'
 const service = axios.create({
   baseURL,
@@ -27,7 +28,7 @@ service.interceptors.response.use(
       if (res.code == 200) {
         return res.result || res.data
       } else {
-        new Toast(res.success)
+        showToast(res.success)
       }
     }
   },

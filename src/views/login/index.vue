@@ -1,26 +1,100 @@
 <!-- 登录页 -->
 <script setup lang="ts">
-import { showLoadingToast } from 'vant'
+import { ref, reactive } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { getCode, login } from '@/api/user.ts'
+import { showToast } from 'vant'
+import { useStore } from '@/store/user.ts'
+const store = useStore()
+const router = useRouter()
+const state = reactive({
+  checked: true,
+  accounts: '',
+  code: '',
+  codeText: '获取验证码',
+  time: 60,
+  interTimeCode: null,
+})
+const getCodeChange = async () => {
+  if (state.interTimeCode) return
+  const res = await getCode({
+    accounts: state.accounts,
+  })
+
+  if (res) {
+    // 验证码倒计时
+    state.interTimeCode = setInterval(() => {
+      state.time--
+      if (state.time < 0) {
+        clearInterval(state.interTimeCode)
+        state.time = 60
+        state.codeText = '获取验证码'
+      } else {
+        state.codeText = '重新发送(' + state.time + 's)'
+        console.log(state.time)
+      }
+    }, 1000)
+    state.code = res.code
+  }
+}
+const loginSubmit = async () => {
+  if (!state.code) {
+    showToast('请输入验证码')
+    return
+  }
+  if (!state.checked) {
+    showToast('请勾选我已阅读')
+    return
+  }
+  const res = await login({
+    accounts: state.accounts,
+    code: state.code,
+  })
+  if (res.errCode === 200) {
+    // 登录成功后需要把登录返回的数据返回到store
+    store.setUserInfo(res.data)
+    if (store.role == 1) {
+      router.push('/task')
+    }
+    if (store.role == 2) {
+      router.push('/talent')
+    }
+  } else {
+    showToast(res.msg)
+  }
+}
+const goBack = () => {
+  history.back()
+}
 </script>
 <template>
   <div class="bgc">
-    <van-icon name="arrow-left" class="icon-left"></van-icon>
+    <van-icon name="arrow-left" @click="goBack" class="icon-left"></van-icon>
     <div class="login-form">
       <h3>验证码登录</h3>
       <div class="login-form-item">
         <i class="icon-phone" />
-        <input placeholder="请输入手机号" type="text" />
+        <input
+          placeholder="请输入手机号"
+          v-model="state.accounts"
+          type="text"
+        />
       </div>
       <div class="login-form-item">
         <i class="icon-code" />
-        <input placeholder="请输入验证码" type="text" />
-        <span>获取验证码</span>
+        <input placeholder="请输入验证码" v-model="state.code" type="text" />
+        <span @click="getCodeChange">{{ state.codeText }}</span>
       </div>
-      <van-button type="primary" block>登录</van-button>
+      <van-button type="primary" @click="loginSubmit" block>登录</van-button>
     </div>
 
     <div class="login-form-label">
-      <van-checkbox v-model="checked" icon-size="16px">我已阅读</van-checkbox>
+      <van-checkbox
+        v-model="state.checked"
+        icon-size="0.75rem"
+        checked-color="#fe8f27"
+        >我已阅读</van-checkbox
+      >
       <router-link to="/login/serviceAgree">《IT企业平台服务协议》</router-link
       >和
       <router-link to="/login/privacyPolicy">《隐私协议》</router-link>
@@ -95,6 +169,17 @@ import { showLoadingToast } from 'vant'
   width: 100%;
   font-size: 0.62rem;
 }
-.van-checkbox {
+/* .login-form-label .van-checkbox__icon {
+  font-size: 0.75rem;
+  height: 0.75rem;
 }
+.login-form-label .van-checkbox__icon .van-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  line-height: 0.75rem;
+}
+.login-form-label .van-checkbox__icon--checked .van-icon {
+  background-color: linear-gradient(90deg, #fea829, #fe8f27);
+  border-color: #fe8f27;
+} */
 </style>

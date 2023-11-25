@@ -38,7 +38,7 @@ a {
 body {
   color: #333333;
   min-height: 100vh;
-  background: #f1f1f1;
+  background: #ffffff;
   font-size: 0.64rem;
   font-family: 'Microsoft YaHei';
 }
@@ -50,4 +50,13 @@ textarea {
   border-radius: 1.17rem;
   border: none;
   font-size: 0.96rem;
+}
+.van-nav-bar .van-icon {
+  color: #333333 !important;
+  font-size: 14px;
+  line-height: 14px;
+}
+.van-nav-bar__text {
+  color: #333333 !important;
+  font-size: 14px;
 }

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { useStore } from '../store/user'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -221,5 +222,21 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+})
+router.beforeEach((to, from, next) => {
+  const store = useStore()
+  if (store.token) {
+    next()
+  } else {
+    if (
+      to.path === '/login' ||
+      to.path === '/login/serviceAgree' ||
+      to.path === '/login/privacyPolicy'
+    ) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
 })
 export default router

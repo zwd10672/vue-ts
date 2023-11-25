@@ -21,8 +21,6 @@ export function getPolicy(data: any) {
   return http({
     url: 'policy_protocol/list',
     method: 'get',
-    params: {
-      data,
-    },
+    params: data,
   })
 }

@@ -15,8 +15,10 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TalentList: typeof import('./src/components/list/TalentList.vue')['default']
     TaskList: typeof import('./src/components/list/TaskList.vue')['default']
+    Toast: typeof import('vant/es')['Toast']
     VanButton: typeof import('vant/es')['Button']
     VanCheckbox: typeof import('vant/es')['Checkbox']
     VanIcon: typeof import('vant/es')['Icon']
+    VanNavBar: typeof import('vant/es')['NavBar']
   }
 }

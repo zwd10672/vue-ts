@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   // 跨域代理
   server: {
-    port: 8002,
+    port: 8000,
     open: true,
     proxy: {
       '/api': 'https://api.imooc.zcwytd.com',
